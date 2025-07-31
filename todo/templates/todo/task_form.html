@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Task{% else %}Add New Task{% endif %} - To-Do List
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <h1>
+            {% if form.instance.pk %}
+                <i class="fas fa-edit me-3"></i>Edit Task
+            {% else %}
+                <i class="fas fa-plus me-3"></i>Add New Task
+            {% endif %}
+        </h1>
+        <p>
+            {% if form.instance.pk %}
+                Update your task details to keep everything organized
+            {% else %}
+                Create a new task to stay productive and organized
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-clipboard-list me-2"></i>Task Details
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Title Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-heading me-2"></i>Task Title *
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.help_text %}
+                                <div class="form-text">{{ form.title.help_text }}</div>
+                            {% endif %}
+                            {% if form.title.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.title.errors %}
+                                        <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="mb-4">
+                            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-align-left me-2"></i>Description
+                            </label>
+                            {{ form.description }}
+                            {% if form.description.help_text %}
+                                <div class="form-text">{{ form.description.help_text }}</div>
+                            {% endif %}
+                            {% if form.description.errors %}
+                                <div class="text-danger mt-1">
+                                    {% for error in form.description.errors %}
+                                        <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'todo:task_list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Tasks
+                            </a>
+                            
+                            <div class="d-flex gap-2">
+                                {% if form.instance.pk %}
+                                    <button type="submit" class="btn btn-gradient">
+                                        <i class="fas fa-save me-2"></i>Update Task
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-gradient">
+                                        <i class="fas fa-plus me-2"></i>Create Task
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <i class="fas fa-lightbulb me-2"></i>Tips for Effective Tasks
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-check text-success me-2"></i>Good Task Titles:</h6>
+                            <ul class="list-unstyled text-muted">
+                                <li>• "Review project proposal"</li>
+                                <li>• "Call dentist for appointment"</li>
+                                <li>• "Finish quarterly report"</li>
+                                <li>• "Buy groceries for dinner"</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-info-circle text-primary me-2"></i>Best Practices:</h6>
+                            <ul class="list-unstyled text-muted">
+                                <li>• Be specific and actionable</li>
+                                <li>• Use clear, concise language</li>
+                                <li>• Include relevant details</li>
+                                <li>• Set realistic expectations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'todo:task_list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-list me-2"></i>View All Tasks
+                        </a>
+                        {% if form.instance.pk %}
+                            <a href="{% url 'todo:task_delete' form.instance.pk %}" class="btn btn-outline-danger">
+                                <i class="fas fa-trash me-2"></i>Delete This Task
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyboard Shortcuts -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <i class="fas fa-keyboard me-2"></i>Keyboard Shortcuts
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Save</span>
+                        <kbd>Ctrl + Enter</kbd>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Cancel</span>
+                        <kbd>Esc</kbd>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Focus Title</span>
+                        <kbd>Alt + T</kbd>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-focus on title field
+        const titleField = document.getElementById('{{ form.title.id_for_label }}');
+        if (titleField) {
+            titleField.focus();
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + Enter to submit form
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                document.querySelector('form').submit();
+            }
+            
+            // Escape to go back
+            if (e.key === 'Escape') {
+                window.location.href = "{% url 'todo:task_list' %}";
+            }
+            
+            // Alt + T to focus title
+            if (e.altKey && e.key === 't') {
+                e.preventDefault();
+                titleField.focus();
+            }
+        });
+
+        // Character counter for title
+        const titleInput = document.getElementById('{{ form.title.id_for_label }}');
+        if (titleInput) {
+            const maxLength = titleInput.getAttribute('maxlength');
+            if (maxLength) {
+                const counter = document.createElement('div');
+                counter.className = 'form-text text-end';
+                counter.id = 'title-counter';
+                titleInput.parentNode.appendChild(counter);
+                
+                function updateCounter() {
+                    const remaining = maxLength - titleInput.value.length;
+                    counter.textContent = `${remaining} characters remaining`;
+                    counter.className = remaining < 20 ? 'form-text text-end text-warning' : 'form-text text-end text-muted';
+                }
+                
+                titleInput.addEventListener('input', updateCounter);
+                updateCounter();
+            }
+        }
+
+        // Auto-resize textarea
+        const textarea = document.getElementById('{{ form.description.id_for_label }}');
+        if (textarea) {
+            function autoResize() {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+            
+            textarea.addEventListener('input', autoResize);
+            autoResize();
+        }
+
+        // Form validation feedback
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            const titleField = document.getElementById('{{ form.title.id_for_label }}');
+            if (!titleField.value.trim()) {
+                e.preventDefault();
+                titleField.focus();
+                titleField.classList.add('is-invalid');
+                
+                // Remove invalid class after user starts typing
+                titleField.addEventListener('input', function() {
+                    this.classList.remove('is-invalid');
+                }, { once: true });
+            }
+        });
+    });
+</script>
+{% endblock %}
+
