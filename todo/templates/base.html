@@ -297,9 +297,12 @@
                             </span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">
-                                <i class="fas fa-sign-out-alt me-1"></i>Logout
-                            </a>
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link btn btn-link text-white" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 25px; transition: all 0.3s ease;">
+                                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                                </button>
+                            </form>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -384,4 +387,3 @@
     {% endblock %}
 </body>
 </html>
-
