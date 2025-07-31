@@ -2,6 +2,19 @@
 
 A modern, feature-rich task management application built with Django, featuring a beautiful gradient design and comprehensive functionality for personal productivity.
 
+## 📷 Images
+- **LogIn_Page**
+<img width="592" height="642" alt="image" src="https://github.com/user-attachments/assets/eafc1438-ca6c-4ea0-8478-227efe97f194" />
+
+- **Signup_Page**
+<img width="596" height="654" alt="image" src="https://github.com/user-attachments/assets/380959f0-dde7-49d6-a745-b23fba64c2fb" />
+
+- **AfterLogin_Page**
+<img width="654" height="786" alt="image" src="https://github.com/user-attachments/assets/2760bcae-b035-4d8f-b54f-85672a8d5320" />
+
+- **AddTask_Page**
+<img width="1236" height="906" alt="image" src="https://github.com/user-attachments/assets/2f291379-8eab-4135-bf9e-9e8e3b937470" />
+
 ## 🌟 Features
 
 ### Core Functionality
