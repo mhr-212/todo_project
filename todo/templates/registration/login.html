@@ -279,10 +279,10 @@
         
         setTimeout(() => {
             demoBtn.innerHTML = originalText;
-            demoBtn.classList.remove('btn-success');
-            demoBtn.classList.add('btn-outline-info');
-        }, 2000);
+            demoBtn.classList.remove("btn-success");
+            demoBtn.classList.add("btn-outline-info");
+            document.querySelector("form").submit(); // Explicitly submit the form
+        }, 500); // Reduced delay for quicker submission
     }
 </script>
 {% endblock %}
-
